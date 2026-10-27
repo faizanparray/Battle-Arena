@@ -15,7 +15,7 @@
     .nav{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:20px 0 26px}.nav button{border:1px solid transparent;border-radius:13px;padding:13px 7px;background:var(--panel2);color:var(--muted);font-weight:800}.nav button.active{background:var(--red);color:white;box-shadow:0 7px 20px #ed394b25}
     .section-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px}.section-head h3{font-size:22px;margin:0}.subtle{font-size:12px;color:var(--muted)}.cards{display:grid;gap:14px}.match{border:1px solid var(--line);border-radius:20px;padding:18px;background:var(--panel)}.match-top{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}.match h4{font-size:20px;margin:0 0 5px}.match-type{font-size:13px;color:var(--muted)}.badge{background:#242f47;color:#dce5ff;padding:7px 10px;border-radius:10px;font-size:11px;font-weight:850;white-space:nowrap}.metrics{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;margin:17px 0}.metric{background:var(--panel2);border-radius:13px;padding:12px;min-width:0}.metric span{display:block;color:var(--muted);font-size:11px;margin-bottom:6px}.metric strong{font-size:15px;overflow-wrap:anywhere}.btn{border:0;border-radius:12px;padding:13px 16px;font-weight:850}.btn-primary{background:var(--red);color:white;width:100%}.btn-primary:active{background:#cf293b}.btn-secondary{background:#263149;color:var(--text);border:1px solid var(--line)}.notice{margin-top:16px;border:1px solid var(--line);background:#141b2a;padding:15px;border-radius:15px;color:var(--muted);font-size:12px;line-height:1.6}
     .table{width:100%;border-collapse:collapse;background:var(--panel);border:1px solid var(--line);border-radius:15px;overflow:hidden}.table th,.table td{text-align:left;padding:13px 10px;border-bottom:1px solid var(--line);font-size:13px}.table th{color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.06em}.table tr:last-child td{border-bottom:0}.rank{color:var(--gold);font-weight:900}.rules{display:grid;gap:12px}.rule{padding:16px;border:1px solid var(--line);border-radius:15px;background:var(--panel)}.rule strong{display:block;margin-bottom:5px}.rule p{margin:0;color:var(--muted);font-size:13px;line-height:1.55}.hidden{display:none!important}
-    .modal-backdrop{position:fixed;inset:0;background:#000b;display:grid;place-items:end center;padding:14px;z-index:5}.modal{width:min(100%,520px);background:var(--panel);border:1px solid var(--line);border-radius:22px;padding:22px;max-height:90vh;overflow:auto;box-shadow:0 20px 70px #0008}.modal h3{margin:0 0 5px;font-size:23px}.modal p{margin:0 0 18px;color:var(--muted);font-size:13px}.field{display:grid;gap:7px;margin:13px 0}.field label{font-size:12px;color:#c4ccdb;font-weight:750}.field input,.field select{width:100%;padding:13px;border-radius:11px;border:1px solid var(--line);background:#0d1320;color:var(--text);outline:none}.field input:focus,.field select:focus{border-color:var(--red)}.modal-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:18px}.form-msg{margin-top:12px;color:#8df0c7;font-size:13px;line-height:1.5}.footer{text-align:center;color:#727e94;font-size:11px;margin-top:28px;line-height:1.7}
+    .modal-backdrop{position:fixed;inset:0;background:#000b;display:grid;place-items:end center;padding:14px;z-index:5}.modal{width:min(100%,520px);background:var(--panel);border:1px solid var(--line);border-radius:22px;padding:22px;max-height:90vh;overflow:auto;box-shadow:0 20px 70px #0008}.modal h3{margin:0 0 5px;font-size:23px}.modal p{margin:0 0 18px;color:var(--muted);font-size:13px}.field{display:grid;gap:7px;margin:13px 0}.field label{font-size:12px;color:#c4ccdb;font-weight:750}.field input,.field select{width:100%;padding:13px;border-radius:11px;border:1px solid var(--line);background:#0d1320;color:var(--text);outline:none}.field input:focus,.field select:focus{border-color:var(--red)}.field small{color:var(--muted);font-size:11px;line-height:1.4}.check-row{display:flex;align-items:flex-start;gap:10px;margin:14px 0;color:var(--muted);font-size:12px;line-height:1.5}.check-row input{margin-top:3px;accent-color:var(--red);flex:0 0 auto}.modal-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:18px}.form-msg{margin-top:12px;color:#8df0c7;font-size:13px;line-height:1.5}.footer{text-align:center;color:#727e94;font-size:11px;margin-top:28px;line-height:1.7}
     @media(min-width:650px){.wrap{padding:30px 26px 50px}.hero{padding:32px}.cards{grid-template-columns:repeat(2,minmax(0,1fr))}.match{display:flex;flex-direction:column}.match .btn{margin-top:auto}.modal-backdrop{place-items:center}}
     @media(max-width:360px){.metrics{gap:6px}.metric{padding:9px}.metric strong{font-size:13px}.hero-stats{gap:12px}}
   </style>
@@ -33,7 +33,15 @@
     <section id="rules" class="tab-panel hidden"><div class="section-head"><h3>Tournament rules</h3><span class="subtle">PLAY FAIR</span></div><div class="rules"><article class="rule"><strong>01 · Be on time</strong><p>Join the room at the time shared by the tournament organiser. Late entry may not be allowed.</p></article><article class="rule"><strong>02 · Fair play only</strong><p>No hacks, cheats, teaming in solo matches, or abusive behaviour. Follow the game and room rules.</p></article><article class="rule"><strong>03 · Correct player details</strong><p>Use your correct in-game name and player ID when registering interest.</p></article><article class="rule"><strong>04 · Results and disputes</strong><p>The organiser should verify match results before publishing scores or rankings.</p></article></div></section>
     <footer class="footer">BATTLE ARENA · COMMUNITY GAMING<br>Demo experience · No paid entry or cash prizes in this version</footer>
   </main>
-  <div id="modal-backdrop" class="modal-backdrop hidden" role="dialog" aria-modal="true" aria-labelledby="modal-title"><div class="modal"><h3 id="modal-title">Register interest</h3><p id="selected-match">Choose a practice room.</p><form id="register-form"><div class="field"><label for="player-name">Player name</label><input id="player-name" name="playerName" required maxlength="32" placeholder="Your in-game name"></div><div class="field"><label for="player-id">Game UID / Player ID</label><input id="player-id" name="playerId" required inputmode="numeric" maxlength="24" placeholder="Enter your player ID"></div><div class="field"><label for="player-mode">Preferred mode</label><select id="player-mode" name="mode"><option>Solo</option><option>Squad</option></select></div><div class="modal-actions"><button type="button" class="btn btn-secondary" id="cancel">Cancel</button><button type="submit" class="btn btn-primary">Submit demo form</button></div><div id="form-msg" class="form-msg" aria-live="polite"></div></form></div></div>
+  <div id="modal-backdrop" class="modal-backdrop hidden" role="dialog" aria-modal="true" aria-labelledby="modal-title"><div class="modal"><h3 id="modal-title">Register interest</h3><p id="selected-match">Choose a practice room.</p><form id="register-form">
+      <div class="field"><label for="player-name">In-game name <span aria-hidden="true">*</span></label><input id="player-name" name="playerName" required maxlength="32" autocomplete="nickname" placeholder="e.g. FaizanOP"><small>Use the name shown in your game profile.</small></div>
+      <div class="field"><label for="player-id">Game UID / Player ID <span aria-hidden="true">*</span></label><input id="player-id" name="playerId" required inputmode="numeric" pattern="[0-9]{5,20}" minlength="5" maxlength="20" placeholder="Enter your numeric UID" aria-describedby="uid-help"><small id="uid-help">Enter 5–20 digits. Check your UID carefully before submitting.</small></div>
+      <div class="field"><label for="player-mode">Match mode</label><select id="player-mode" name="mode"><option value="Solo">Solo</option><option value="Squad">Squad</option></select></div>
+      <div class="field hidden" id="team-field"><label for="team-name">Team name (optional)</label><input id="team-name" name="teamName" maxlength="32" placeholder="Your squad name"></div>
+      <label class="check-row"><input id="demo-confirm" type="checkbox" required><span>I understand this is a demo registration. My details will not be sent to the organiser or saved online.</span></label>
+      <div class="modal-actions"><button type="button" class="btn btn-secondary" id="cancel">Cancel</button><button type="submit" class="btn btn-primary">Check registration</button></div>
+      <div id="form-msg" class="form-msg" aria-live="polite"></div>
+    </form></div></div>
   <script>
     const tabButtons = document.querySelectorAll('[data-tab]');
     const panels = document.querySelectorAll('.tab-panel');
@@ -51,19 +59,26 @@
       formMsg.textContent = '';
       form.reset();
       document.getElementById('player-mode').value = button.dataset.match.includes('Squad') ? 'Squad' : 'Solo';
+      document.getElementById('team-field').classList.toggle('hidden', document.getElementById('player-mode').value !== 'Squad');
       backdrop.classList.remove('hidden');
       document.getElementById('player-name').focus();
     }));
     function closeModal(){backdrop.classList.add('hidden');}
     document.getElementById('cancel').addEventListener('click', closeModal);
+    document.getElementById('player-mode').addEventListener('change', event => {
+      document.getElementById('team-field').classList.toggle('hidden', event.target.value !== 'Squad');
+    });
     backdrop.addEventListener('click', event => {if(event.target === backdrop) closeModal();});
     document.addEventListener('keydown', event => {if(event.key === 'Escape') closeModal();});
     form.addEventListener('submit', event => {
       event.preventDefault();
       const name = document.getElementById('player-name').value.trim();
       const uid = document.getElementById('player-id').value.trim();
-      if(!name || !uid){formMsg.textContent = 'Please fill in both fields.';return;}
-      formMsg.textContent = 'Demo form checked for ' + name + '. Your details have NOT been saved or sent anywhere.';
+      const confirmed = document.getElementById('demo-confirm').checked;
+      if(!name || !uid){formMsg.textContent = 'Please fill in your in-game name and UID.';return;}
+      if(!/^[0-9]{5,20}$/.test(uid)){formMsg.textContent = 'UID must contain 5–20 digits only.';document.getElementById('player-id').focus();return;}
+      if(!confirmed){formMsg.textContent = 'Please confirm that you understand this is a demo form.';return;}
+      formMsg.textContent = 'Looks good, ' + name + '! This is only a demo check. Your details have NOT been saved or sent to anyone.';
     });
     if ('serviceWorker' in navigator) { window.addEventListener('load', () => navigator.serviceWorker.register('./service-worker.js').catch(() => {})); }
   </script>
