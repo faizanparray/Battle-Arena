@@ -3,106 +3,69 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#10131f">
-  <meta name="description" content="Battle Arena community gaming tournaments and leaderboards.">
+  <meta name="theme-color" content="#101522">
+  <meta name="description" content="Battle Arena community gaming tournaments">
   <link rel="manifest" href="manifest.json">
-  <title>Battle Arena — Tournaments</title>
+  <title>Battle Arena — Pro Tournaments</title>
   <style>
-    :root{--bg:#0c0f19;--panel:#171c2b;--panel2:#20273a;--text:#f5f6fb;--muted:#aab2c8;--red:#ed3d48;--line:#30384d}
-    *{box-sizing:border-box} body{margin:0;background:radial-gradient(circle at top,#1a2034 0,#0c0f19 48%);color:var(--text);font:16px system-ui,-apple-system,Segoe UI,sans-serif}
-    header{padding:24px 18px 18px;max-width:760px;margin:auto}
-    .brand{display:flex;gap:12px;align-items:center}.logo{width:48px;height:48px;border-radius:14px;background:var(--red);display:grid;place-items:center;font-size:26px}
-    h1{font-size:22px;line-height:1.1;margin:0;letter-spacing:.7px} .tag{font-size:11px;letter-spacing:1.3px;color:var(--muted);margin-top:5px}
-    main{max-width:760px;margin:auto;padding:0 16px 40px}.hero{background:linear-gradient(130deg,#262d45,#171c2b 70%);border:1px solid var(--line);border-radius:22px;padding:20px;margin:4px 0 20px}
-    .eyebrow{color:#ff9da3;font-size:12px;font-weight:800;letter-spacing:1.5px}.hero h2{font-size:27px;margin:9px 0}.hero p{color:var(--muted);line-height:1.5;margin:0 0 15px}
-    .pill{display:inline-block;border-radius:999px;padding:6px 10px;background:#18392f;color:#8df0c3;font-size:12px;font-weight:800}
-    .sectionhead{display:flex;align-items:center;justify-content:space-between;margin:22px 2px 12px}.sectionhead h3{margin:0;font-size:18px}.sectionhead span{color:var(--muted);font-size:12px}
-    .card{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:16px;margin-bottom:12px}
-    .cardtop{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}.card h4{margin:0 0 5px;font-size:17px}.sub{color:var(--muted);font-size:13px}
-    .badge{font-size:11px;font-weight:800;background:#26304a;border-radius:8px;padding:6px 8px;white-space:nowrap}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:16px 0}
-    .stat{background:var(--panel2);padding:10px;border-radius:12px}.stat small{display:block;color:var(--muted);font-size:11px}.stat strong{display:block;font-size:15px;margin-top:4px}
-    button{width:100%;border:0;border-radius:12px;padding:13px 14px;background:var(--red);color:white;font-weight:800;font-size:14px;cursor:pointer}
-    button.secondary{background:#293149;color:#f5f6fb;border:1px solid #3a4560}
-    .notice{font-size:12px;color:var(--muted);line-height:1.5;background:#191f30;border:1px solid var(--line);padding:13px;border-radius:14px;margin-top:16px}
-    .tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:20px 0}.tabs button{background:#20273a;color:var(--muted);padding:11px 6px}.tabs button.active{background:#ed3d48;color:#fff}
-    .panel{display:none}.panel.active{display:block}.playerrow{display:flex;justify-content:space-between;padding:12px 0;border-bottom:1px solid var(--line)}.playerrow:last-child{border:0}
-    footer{text-align:center;color:var(--muted);font-size:12px;padding:16px}
-    .toast{display:none;position:fixed;bottom:18px;left:16px;right:16px;max-width:500px;margin:auto;background:#f5f6fb;color:#10131f;padding:14px 16px;border-radius:13px;box-shadow:0 8px 30px #0008;font-weight:650}
-    @media(min-width:600px){.cards{display:grid;grid-template-columns:1fr 1fr;gap:12px}.card{margin:0}.hero h2{font-size:34px}}
+    :root{color-scheme:dark;--bg:#0b0f18;--panel:#141b2a;--panel2:#1b2436;--line:#2b354b;--text:#f4f6fb;--muted:#a4aec2;--red:#ed394b;--red2:#ff5968;--green:#35c995;--gold:#f5c451}
+    *{box-sizing:border-box} body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif} button,input,select{font:inherit} button{cursor:pointer}
+    .wrap{width:min(100%,900px);margin:auto;padding:22px 18px 40px}.top{display:flex;align-items:center;gap:14px;margin:8px 0 24px}.logo{width:58px;height:58px;border-radius:17px;background:var(--red);display:grid;place-items:center;font-size:30px;box-shadow:0 8px 24px #ed394b33}.brand h1{font-size:clamp(22px,5vw,32px);letter-spacing:.04em;margin:0;font-weight:850}.brand p{margin:4px 0 0;color:var(--muted);font-size:12px;letter-spacing:.18em;font-weight:700}
+    .hero{border:1px solid var(--line);border-radius:24px;padding:24px;background:radial-gradient(ellipse at 95% 0%,#293651 0,transparent 50%),linear-gradient(135deg,#171f30,#121725);position:relative;overflow:hidden}.eyebrow{color:var(--red2);font-weight:850;font-size:12px;letter-spacing:.18em}.hero h2{font-size:clamp(27px,6vw,43px);line-height:1.12;margin:13px 0}.hero p{color:#b7c0d1;line-height:1.6;margin:0 0 18px;max-width:620px}.hero-foot{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}.pill{display:inline-flex;align-items:center;gap:7px;border-radius:999px;padding:8px 12px;font-size:12px;font-weight:800;background:#173b34;color:#8df0c7}.hero-stats{display:flex;gap:18px;color:var(--muted);font-size:12px}.hero-stats strong{display:block;color:var(--text);font-size:16px;margin-bottom:2px}
+    .nav{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:20px 0 26px}.nav button{border:1px solid transparent;border-radius:13px;padding:13px 7px;background:var(--panel2);color:var(--muted);font-weight:800}.nav button.active{background:var(--red);color:white;box-shadow:0 7px 20px #ed394b25}
+    .section-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px}.section-head h3{font-size:22px;margin:0}.subtle{font-size:12px;color:var(--muted)}.cards{display:grid;gap:14px}.match{border:1px solid var(--line);border-radius:20px;padding:18px;background:var(--panel)}.match-top{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}.match h4{font-size:20px;margin:0 0 5px}.match-type{font-size:13px;color:var(--muted)}.badge{background:#242f47;color:#dce5ff;padding:7px 10px;border-radius:10px;font-size:11px;font-weight:850;white-space:nowrap}.metrics{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;margin:17px 0}.metric{background:var(--panel2);border-radius:13px;padding:12px;min-width:0}.metric span{display:block;color:var(--muted);font-size:11px;margin-bottom:6px}.metric strong{font-size:15px;overflow-wrap:anywhere}.btn{border:0;border-radius:12px;padding:13px 16px;font-weight:850}.btn-primary{background:var(--red);color:white;width:100%}.btn-primary:active{background:#cf293b}.btn-secondary{background:#263149;color:var(--text);border:1px solid var(--line)}.notice{margin-top:16px;border:1px solid var(--line);background:#141b2a;padding:15px;border-radius:15px;color:var(--muted);font-size:12px;line-height:1.6}
+    .table{width:100%;border-collapse:collapse;background:var(--panel);border:1px solid var(--line);border-radius:15px;overflow:hidden}.table th,.table td{text-align:left;padding:13px 10px;border-bottom:1px solid var(--line);font-size:13px}.table th{color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.06em}.table tr:last-child td{border-bottom:0}.rank{color:var(--gold);font-weight:900}.rules{display:grid;gap:12px}.rule{padding:16px;border:1px solid var(--line);border-radius:15px;background:var(--panel)}.rule strong{display:block;margin-bottom:5px}.rule p{margin:0;color:var(--muted);font-size:13px;line-height:1.55}.hidden{display:none!important}
+    .modal-backdrop{position:fixed;inset:0;background:#000b;display:grid;place-items:end center;padding:14px;z-index:5}.modal{width:min(100%,520px);background:var(--panel);border:1px solid var(--line);border-radius:22px;padding:22px;max-height:90vh;overflow:auto;box-shadow:0 20px 70px #0008}.modal h3{margin:0 0 5px;font-size:23px}.modal p{margin:0 0 18px;color:var(--muted);font-size:13px}.field{display:grid;gap:7px;margin:13px 0}.field label{font-size:12px;color:#c4ccdb;font-weight:750}.field input,.field select{width:100%;padding:13px;border-radius:11px;border:1px solid var(--line);background:#0d1320;color:var(--text);outline:none}.field input:focus,.field select:focus{border-color:var(--red)}.modal-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:18px}.form-msg{margin-top:12px;color:#8df0c7;font-size:13px;line-height:1.5}.footer{text-align:center;color:#727e94;font-size:11px;margin-top:28px;line-height:1.7}
+    @media(min-width:650px){.wrap{padding:30px 26px 50px}.hero{padding:32px}.cards{grid-template-columns:repeat(2,minmax(0,1fr))}.match{display:flex;flex-direction:column}.match .btn{margin-top:auto}.modal-backdrop{place-items:center}}
+    @media(max-width:360px){.metrics{gap:6px}.metric{padding:9px}.metric strong{font-size:13px}.hero-stats{gap:12px}}
   </style>
 </head>
 <body>
-  <header>
-    <div class="brand"><div class="logo">🏆</div><div><h1>BATTLE ARENA</h1><div class="tag">COMMUNITY TOURNAMENTS</div></div></div>
-  </header>
-  <main>
-    <section class="hero">
-      <div class="eyebrow">PLAY • COMPETE • IMPROVE</div>
-      <h2>Your next match starts here.</h2>
-      <p>Find community BR rooms, check tournament details and follow the leaderboard — all in one place.</p>
-      <span class="pill">✓ FREE-ENTRY DEMO</span>
-    </section>
-
-    <div class="tabs" role="tablist">
-      <button class="active" data-tab="matches">Tournaments</button>
-      <button data-tab="leaderboard">Leaderboard</button>
-      <button data-tab="rules">Rules</button>
-    </div>
-
-    <section id="matches" class="panel active">
-      <div class="sectionhead"><h3>Upcoming matches</h3><span>Demo data</span></div>
-      <div class="cards">
-        <article class="card">
-          <div class="cardtop"><div><h4>BR Solo Scrim</h4><div class="sub">Battle Royale · Solo</div></div><span class="badge">FREE ENTRY</span></div>
-          <div class="stats"><div class="stat"><small>Players</small><strong>20 slots</strong></div><div class="stat"><small>Start time</small><strong>7:00 PM</strong></div><div class="stat"><small>Prize</small><strong>Practice</strong></div></div>
-          <button onclick="joinMatch('BR Solo Scrim')">Register interest</button>
-        </article>
-        <article class="card">
-          <div class="cardtop"><div><h4>Squad Practice Room</h4><div class="sub">Battle Royale · Squad</div></div><span class="badge">FREE ENTRY</span></div>
-          <div class="stats"><div class="stat"><small>Teams</small><strong>12 squads</strong></div><div class="stat"><small>Start time</small><strong>8:30 PM</strong></div><div class="stat"><small>Prize</small><strong>Practice</strong></div></div>
-          <button onclick="joinMatch('Squad Practice Room')">Register interest</button>
-        </article>
-      </div>
-      <div class="notice">This is a front-end demo. Registration is not saved or sent to an organiser yet. Room IDs, real schedules and verified results must be added by an organiser.</div>
-    </section>
-
-    <section id="leaderboard" class="panel">
-      <div class="sectionhead"><h3>Practice leaderboard</h3><span>Sample scores</span></div>
-      <div class="card">
-        <div class="playerrow"><span>🥇 Player One</span><strong>8 kills</strong></div>
-        <div class="playerrow"><span>🥈 Player Two</span><strong>6 kills</strong></div>
-        <div class="playerrow"><span>🥉 Player Three</span><strong>4 kills</strong></div>
-        <div class="notice">Sample scores only. These are not verified match results.</div>
-      </div>
-    </section>
-
-    <section id="rules" class="panel">
-      <div class="sectionhead"><h3>Community rules</h3></div>
-      <div class="card">
-        <div class="playerrow"><span>Entry</span><strong>Free</strong></div>
-        <div class="playerrow"><span>Respectful play</span><strong>Required</strong></div>
-        <div class="playerrow"><span>Results</span><strong>Organiser verified</strong></div>
-        <p class="sub">This demo is an independent community project and is not affiliated with or endorsed by Garena. Use only game assets and branding you are authorised to use.</p>
-      </div>
-    </section>
+  <main class="wrap">
+    <header class="top"><div class="logo" aria-hidden="true">🏆</div><div class="brand"><h1>BATTLE ARENA</h1><p>COMMUNITY TOURNAMENTS</p></div></header>
+    <section class="hero"><div class="eyebrow">PLAY · COMPETE · IMPROVE</div><h2>Your next match starts here.</h2><p>Find community Battle Royale rooms, check tournament details and follow the leaderboard — all in one place.</p><div class="hero-foot"><span class="pill">● FREE-ENTRY DEMO</span><div class="hero-stats"><div><strong>02</strong>Upcoming rooms</div><div><strong>BR</strong>Game mode</div></div></div></section>
+    <nav class="nav" aria-label="Main sections"><button class="active" data-tab="tournaments">Tournaments</button><button data-tab="leaderboard">Leaderboard</button><button data-tab="rules">Rules</button></nav>
+    <section id="tournaments" class="tab-panel"><div class="section-head"><h3>Upcoming matches</h3><span class="subtle">DEMO SCHEDULE</span></div><div class="cards">
+      <article class="match"><div class="match-top"><div><h4>BR Solo Scrim</h4><div class="match-type">Battle Royale · Solo</div></div><span class="badge">FREE ENTRY</span></div><div class="metrics"><div class="metric"><span>Players</span><strong>20 slots</strong></div><div class="metric"><span>Start time</span><strong>7:00 PM</strong></div><div class="metric"><span>Prize</span><strong>Practice</strong></div></div><button class="btn btn-primary register" data-match="BR Solo Scrim">Register interest</button></article>
+      <article class="match"><div class="match-top"><div><h4>Squad Practice Room</h4><div class="match-type">Battle Royale · Squad</div></div><span class="badge">FREE ENTRY</span></div><div class="metrics"><div class="metric"><span>Teams</span><strong>12 squads</strong></div><div class="metric"><span>Start time</span><strong>8:30 PM</strong></div><div class="metric"><span>Prize</span><strong>Practice</strong></div></div><button class="btn btn-primary register" data-match="Squad Practice Room">Register interest</button></article>
+    </div><div class="notice">This is a front-end demo. Registration details are not sent to a server or saved permanently. Match times are examples and must be confirmed by the tournament admin.</div></section>
+    <section id="leaderboard" class="tab-panel hidden"><div class="section-head"><h3>Top players</h3><span class="subtle">SAMPLE DATA</span></div><table class="table"><thead><tr><th>Rank</th><th>Player</th><th>Kills</th><th>Points</th></tr></thead><tbody><tr><td class="rank">#1</td><td>ShadowX</td><td>8</td><td>120</td></tr><tr><td class="rank">#2</td><td>BlazeYT</td><td>6</td><td>95</td></tr><tr><td class="rank">#3</td><td>Falcon</td><td>5</td><td>82</td></tr><tr><td>#4</td><td>NightWolf</td><td>4</td><td>70</td></tr><tr><td>#5</td><td>RusherOP</td><td>3</td><td>61</td></tr></tbody></table><div class="notice">These rankings are illustrative only, not real match results.</div></section>
+    <section id="rules" class="tab-panel hidden"><div class="section-head"><h3>Tournament rules</h3><span class="subtle">PLAY FAIR</span></div><div class="rules"><article class="rule"><strong>01 · Be on time</strong><p>Join the room at the time shared by the tournament organiser. Late entry may not be allowed.</p></article><article class="rule"><strong>02 · Fair play only</strong><p>No hacks, cheats, teaming in solo matches, or abusive behaviour. Follow the game and room rules.</p></article><article class="rule"><strong>03 · Correct player details</strong><p>Use your correct in-game name and player ID when registering interest.</p></article><article class="rule"><strong>04 · Results and disputes</strong><p>The organiser should verify match results before publishing scores or rankings.</p></article></div></section>
+    <footer class="footer">BATTLE ARENA · COMMUNITY GAMING<br>Demo experience · No paid entry or cash prizes in this version</footer>
   </main>
-  <footer>Battle Arena · Community demo · Not affiliated with Garena</footer>
-  <div id="toast" class="toast" role="status"></div>
+  <div id="modal-backdrop" class="modal-backdrop hidden" role="dialog" aria-modal="true" aria-labelledby="modal-title"><div class="modal"><h3 id="modal-title">Register interest</h3><p id="selected-match">Choose a practice room.</p><form id="register-form"><div class="field"><label for="player-name">Player name</label><input id="player-name" name="playerName" required maxlength="32" placeholder="Your in-game name"></div><div class="field"><label for="player-id">Game UID / Player ID</label><input id="player-id" name="playerId" required inputmode="numeric" maxlength="24" placeholder="Enter your player ID"></div><div class="field"><label for="player-mode">Preferred mode</label><select id="player-mode" name="mode"><option>Solo</option><option>Squad</option></select></div><div class="modal-actions"><button type="button" class="btn btn-secondary" id="cancel">Cancel</button><button type="submit" class="btn btn-primary">Submit demo form</button></div><div id="form-msg" class="form-msg" aria-live="polite"></div></form></div></div>
   <script>
-    const buttons=[...document.querySelectorAll('[data-tab]')];
-    buttons.forEach(btn=>btn.addEventListener('click',()=>{
-      buttons.forEach(b=>b.classList.toggle('active',b===btn));
-      document.querySelectorAll('.panel').forEach(p=>p.classList.toggle('active',p.id===btn.dataset.tab));
+    const tabButtons = document.querySelectorAll('[data-tab]');
+    const panels = document.querySelectorAll('.tab-panel');
+    tabButtons.forEach(button => button.addEventListener('click', () => {
+      tabButtons.forEach(item => item.classList.toggle('active', item === button));
+      panels.forEach(panel => panel.classList.toggle('hidden', panel.id !== button.dataset.tab));
+      window.scrollTo({top: 0, behavior: 'smooth'});
     }));
-    let toastTimer;
-    function showToast(message){
-      const t=document.getElementById('toast');t.textContent=message;t.style.display='block';
-      clearTimeout(toastTimer);toastTimer=setTimeout(()=>t.style.display='none',3500);
-    }
-    function joinMatch(name){showToast('Demo only: interest in “'+name+'” was not saved. Registration needs a secure backend.');}
-    if('serviceWorker' in navigator && location.protocol.startsWith('http')){
-      window.addEventListener('load',()=>navigator.serviceWorker.register('./service-worker.js').catch(()=>{}));
-    }
+    const backdrop = document.getElementById('modal-backdrop');
+    const selectedMatch = document.getElementById('selected-match');
+    const form = document.getElementById('register-form');
+    const formMsg = document.getElementById('form-msg');
+    document.querySelectorAll('.register').forEach(button => button.addEventListener('click', () => {
+      selectedMatch.textContent = 'Room: ' + button.dataset.match;
+      formMsg.textContent = '';
+      form.reset();
+      document.getElementById('player-mode').value = button.dataset.match.includes('Squad') ? 'Squad' : 'Solo';
+      backdrop.classList.remove('hidden');
+      document.getElementById('player-name').focus();
+    }));
+    function closeModal(){backdrop.classList.add('hidden');}
+    document.getElementById('cancel').addEventListener('click', closeModal);
+    backdrop.addEventListener('click', event => {if(event.target === backdrop) closeModal();});
+    document.addEventListener('keydown', event => {if(event.key === 'Escape') closeModal();});
+    form.addEventListener('submit', event => {
+      event.preventDefault();
+      const name = document.getElementById('player-name').value.trim();
+      const uid = document.getElementById('player-id').value.trim();
+      if(!name || !uid){formMsg.textContent = 'Please fill in both fields.';return;}
+      formMsg.textContent = 'Demo form checked for ' + name + '. Your details have NOT been saved or sent anywhere.';
+    });
+    if ('serviceWorker' in navigator) { window.addEventListener('load', () => navigator.serviceWorker.register('./service-worker.js').catch(() => {})); }
   </script>
 </body>
 </html>
