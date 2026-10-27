@@ -81,6 +81,131 @@
       formMsg.textContent = 'Looks good, ' + name + '! This is only a demo check. Your details have NOT been saved or sent to anyone.';
     });
     if ('serviceWorker' in navigator) { window.addEventListener('load', () => navigator.serviceWorker.register('./service-worker.js').catch(() => {})); }
-  </script>
+  
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { getAuth, signInAnonymously } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+const app = initializeApp({
+  apiKey: "AIzaSyBrkTq4fHs2EwAWEE_FXIkAkxjqJLnDLh8",
+  authDomain: "battle-arena-2a02a.firebaseapp.com",
+  projectId: "battle-arena-2a02a",
+  storageBucket: "battle-arena-2a02a.firebasestorage.app",
+  messagingSenderId: "924009107111",
+  appId: "1:924009107111:web:b00be3c938e0207b8bd582"
+});
+
+const auth = getAuth(app);
+const db = getFirestore(app);
+const authReady = signInAnonymously(auth);
+
+let currentMatch = "";
+const backdrop = document.getElementById("modal-backdrop");
+const form = document.getElementById("register-form");
+const formMsg = document.getElementById("form-msg");
+const modeField = document.getElementById("player-mode");
+const teamField = document.getElementById("team-field");
+const submitButton = form.querySelector('[type="submit"]');
+
+document.querySelectorAll("[data-tab]").forEach(button => {
+  button.addEventListener("click", () => {
+    document.querySelectorAll("[data-tab]").forEach(item =>
+      item.classList.toggle("active", item === button)
+    );
+    document.querySelectorAll(".tab-panel").forEach(panel =>
+      panel.classList.toggle("hidden", panel.id !== button.dataset.tab)
+    );
+    window.scrollTo({top: 0, behavior: "smooth"});
+  });
+});
+
+document.querySelectorAll(".register").forEach(button => {
+  button.addEventListener("click", () => {
+    currentMatch = button.dataset.match;
+    document.getElementById("selected-match").textContent =
+      "Room: " + currentMatch;
+    form.reset();
+    formMsg.textContent = "";
+    modeField.value = currentMatch.includes("Squad") ? "Squad" : "Solo";
+    teamField.classList.toggle("hidden", modeField.value !== "Squad");
+    backdrop.classList.remove("hidden");
+  });
+});
+
+modeField.addEventListener("change", () => {
+  teamField.classList.toggle("hidden", modeField.value !== "Squad");
+});
+
+function closeModal() {
+  backdrop.classList.add("hidden");
+}
+
+document.getElementById("cancel").addEventListener("click", closeModal);
+backdrop.addEventListener("click", event => {
+  if (event.target === backdrop) closeModal();
+});
+document.addEventListener("keydown", event => {
+  if (event.key === "Escape") closeModal();
+});
+
+form.addEventListener("submit", async event => {
+  event.preventDefault();
+
+  const gameName = document.getElementById("player-name").value.trim();
+  const uid = document.getElementById("player-id").value.trim();
+  const mode = modeField.value;
+  const teamName = document.getElementById("team-name").value.trim();
+
+  if (!gameName || gameName.length > 32) {
+    formMsg.textContent = "Enter an in-game name of 1–32 characters.";
+    return;
+  }
+  if (!/^[0-9]{5,20}$/.test(uid)) {
+    formMsg.textContent = "UID must contain 5–20 digits.";
+    return;
+  }
+  if (!document.getElementById("demo-confirm").checked) {
+    formMsg.textContent = "Please confirm before submitting.";
+    return;
+  }
+
+  submitButton.disabled = true;
+  formMsg.textContent = "Submitting registration…";
+
+  try {
+    await authReady;
+
+    const data = {
+      gameName,
+      uid,
+      mode,
+      matchName: currentMatch,
+      createdAt: serverTimestamp()
+    };
+
+    if (mode === "Squad" && teamName) {
+      data.teamName = teamName;
+    }
+
+    await addDoc(collection(db, "registrations"), data);
+    formMsg.textContent = "Registration saved successfully!";
+    form.reset();
+  } catch (error) {
+    console.error(error);
+    formMsg.textContent =
+      "Could not save registration. Please try again later.";
+  } finally {
+    submitButton.disabled = false;
+  }
+});
+
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("./service-worker.js").catch(() => {});
+  });
+}
+</script>
+  
 </body>
 </html>
