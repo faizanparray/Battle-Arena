@@ -1,23 +1,33 @@
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-import { getAuth, signInAnonymously } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+import {
+  getAuth,
+  signInAnonymously
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+import {
+  getFirestore,
+  collection,
+  addDoc,
+  serverTimestamp
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
+// Firebase setup
 const app = initializeApp({
   apiKey: "AIzaSyBrkTq4fHs2EwAWEE_FXIkAkxjqJLnDLh8",
   authDomain: "battle-arena-2a02a.firebaseapp.com",
   projectId: "battle-arena-2a02a",
   storageBucket: "battle-arena-2a02a.firebasestorage.app",
   messagingSenderId: "924009107111",
-  appId: "1:924009107111:web:b00be3c938e0207b8bd582"
+  appId: "1:924009107111:web:b00be3c938e0207b8bd582",
+  measurementId: "G-VH0SK283HH"
 });
 
 const auth = getAuth(app);
 const db = getFirestore(app);
-const authReady = signInAnonymously(auth);
 
 let currentMatch = "";
+
 const backdrop = document.getElementById("modal-backdrop");
 const form = document.getElementById("register-form");
 const formMsg = document.getElementById("form-msg");
@@ -25,65 +35,122 @@ const modeField = document.getElementById("player-mode");
 const teamField = document.getElementById("team-field");
 const submitButton = form.querySelector('[type="submit"]');
 
+// Tabs
 document.querySelectorAll("[data-tab]").forEach(button => {
   button.addEventListener("click", () => {
     document.querySelectorAll("[data-tab]").forEach(item =>
       item.classList.toggle("active", item === button)
     );
+
     document.querySelectorAll(".tab-panel").forEach(panel =>
-      panel.classList.toggle("hidden", panel.id !== button.dataset.tab)
+      panel.classList.toggle(
+        "hidden",
+        panel.id !== button.dataset.tab
+      )
     );
-    window.scrollTo({top: 0, behavior: "smooth"});
+
+    window.scrollTo({ top: 0, behavior: "smooth" });
   });
 });
 
+// Open registration popup
 document.querySelectorAll(".register").forEach(button => {
   button.addEventListener("click", () => {
-    currentMatch = button.dataset.match;
+    currentMatch = button.dataset.match || "BR Solo Scrim";
+
     document.getElementById("selected-match").textContent =
       "Room: " + currentMatch;
+
     form.reset();
     formMsg.textContent = "";
-    modeField.value = currentMatch.includes("Squad") ? "Squad" : "Solo";
-    teamField.classList.toggle("hidden", modeField.value !== "Squad");
+
+    modeField.value = currentMatch.includes("Squad")
+      ? "Squad"
+      : "Solo";
+
+    teamField.classList.toggle(
+      "hidden",
+      modeField.value !== "Squad"
+    );
+
     backdrop.classList.remove("hidden");
   });
 });
 
+// Show/hide team name
 modeField.addEventListener("change", () => {
-  teamField.classList.toggle("hidden", modeField.value !== "Squad");
+  teamField.classList.toggle(
+    "hidden",
+    modeField.value !== "Squad"
+  );
 });
 
+// Close popup
 function closeModal() {
   backdrop.classList.add("hidden");
 }
 
-document.getElementById("cancel").addEventListener("click", closeModal);
+document.getElementById("cancel").addEventListener(
+  "click",
+  closeModal
+);
+
 backdrop.addEventListener("click", event => {
   if (event.target === backdrop) closeModal();
 });
+
 document.addEventListener("keydown", event => {
   if (event.key === "Escape") closeModal();
 });
 
+// Registration and Firebase saving
 form.addEventListener("submit", async event => {
   event.preventDefault();
 
-  const gameName = document.getElementById("player-name").value.trim();
-  const uid = document.getElementById("player-id").value.trim();
+  const gameName =
+    document.getElementById("player-name").value.trim();
+
+  const uid =
+    document.getElementById("player-id").value.trim();
+
   const mode = modeField.value;
-  const teamName = document.getElementById("team-name").value.trim();
+
+  const teamName =
+    document.getElementById("team-name").value.trim();
 
   if (!gameName || gameName.length > 32) {
-    formMsg.textContent = "Enter an in-game name of 1–32 characters.";
+    formMsg.textContent =
+      "Enter an in-game name of 1–32 characters.";
     return;
   }
+
   if (!/^[0-9]{5,20}$/.test(uid)) {
-    formMsg.textContent = "UID must contain 5–20 digits.";
+    formMsg.textContent =
+      "UID must contain 5–20 digits.";
     return;
   }
+
+  if (mode !== "Solo" && mode !== "Squad") {
+    formMsg.textContent = "Please select a valid mode.";
+    return;
+  }
+
   if (!document.getElementById("demo-confirm").checked) {
-    formMsg.textContent = "Please confirm before submitting.";
+    formMsg.textContent =
+      "Please tick the confirmation checkbox.";
+    return;
+  }
+
+  if (
+    !["BR Solo Scrim", "Squad Practice Room"].includes(currentMatch)
+  ) {
+    formMsg.textContent = "Please select a valid tournament.";
+    return;
+  }
+
+  if (mode === "Squad" && teamName.length > 32) {
+    formMsg.textContent =
+      "Team name must be 32 characters or less.";
     return;
   }
 
@@ -91,12 +158,14 @@ form.addEventListener("submit", async event => {
   formMsg.textContent = "Submitting registration…";
 
   try {
-    await authReady;
+    if (!auth.currentUser) {
+      await signInAnonymously(auth);
+    }
 
     const data = {
-      gameName,
-      uid,
-      mode,
+      gameName: gameName,
+      uid: uid,
+      mode: mode,
       matchName: currentMatch,
       createdAt: serverTimestamp()
     };
@@ -106,20 +175,32 @@ form.addEventListener("submit", async event => {
     }
 
     await addDoc(collection(db, "registrations"), data);
-    formMsg.textContent = "Registration saved successfully!";
+
+    formMsg.textContent =
+      "Registration saved successfully!";
+
     form.reset();
+    teamField.classList.add("hidden");
+
   } catch (error) {
-    console.error(error);
+    console.error("Registration error:", error);
+
     formMsg.textContent =
       "Could not save registration. Please try again later.";
+
   } finally {
     submitButton.disabled = false;
   }
 });
 
+// Service worker
 if ("serviceWorker" in navigator) {
   window.addEventListener("load", () => {
-    navigator.serviceWorker.register("./service-worker.js").catch(() => {});
+    navigator.serviceWorker
+      .register("./service-worker.js")
+      .catch(error =>
+        console.log("Service worker:", error)
+      );
   });
 }
 </script>
